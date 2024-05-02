@@ -1,0 +1,18 @@
+apiVersion: karpenter.k8s.aws/v1beta1
+kind: EC2NodeClass
+metadata:
+  name: default
+spec:
+  amiFamily: AL2 # Amazon Linux 2
+  role: "KarpenterNodeRole-EKS-Karpenter" # replace with your cluster name
+  subnetSelectorTerms:
+    - tags:
+        karpenter.sh/discovery: "<CLUSTER-NAME>" # replace with your cluster name
+  securityGroupSelectorTerms:
+    - tags:
+        karpenter.sh/discovery: "<CLUSTER-NAME>" # replace with your cluster name
+  amiSelectorTerms:
+    - id: "ami-0a5fca6a0f9b03121"
+    - id: "ami-0eb4c2590f6f3d923"
+
+
