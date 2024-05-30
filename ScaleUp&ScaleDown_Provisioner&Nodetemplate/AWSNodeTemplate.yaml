@@ -5,6 +5,8 @@ metadata:
 spec:
   subnetSelector:
     karpenter.sh/discovery: <Cluster_Name>
+    #if you don't want to use tag then add subnet id directly
   securityGroupSelector:
     karpenter.sh/discovery: <Cluster_Name>
+    #if you don't want to use tag then add SG id directly
 

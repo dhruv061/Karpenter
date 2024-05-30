@@ -4,13 +4,22 @@ metadata:
   name: default
 spec:
   amiFamily: AL2 # Amazon Linux 2
-  role: "KarpenterNodeRole-EKS-Karpenter" # replace with your cluster name
+  role: "KarpenterNodeRole-EKS-Karpenter" # replace with your karpenter-node-role name
   subnetSelectorTerms:
     - tags:
-        karpenter.sh/discovery: "<CLUSTER-NAME>" # replace with your cluster name
+        karpenter.sh/discovery: "<CLUSTER-NAME>" # replace with your cluster 
+
+  #If you dont want to tag your subnet then harcoded your all subnet id's that attach with EKS node gorup
+    # - id: <your-subnet-id-1>
+    # - id: <your-subnet-id-2>
+
   securityGroupSelectorTerms:
     - tags:
-        karpenter.sh/discovery: "<CLUSTER-NAME>" # replace with your cluster name
+        karpenter.sh/discovery: "<CLUSTER-NAME>" # replace with your cluster 
+
+  #If you dont want to tag your securitu group then harcoded your all subnesecurity groupt id's that attach with EKS node gorup nodes
+    # - id: <your-sg-id-1>   
+    
   amiSelectorTerms:
     - id: "ami-0a5fca6a0f9b03121"
     - id: "ami-0eb4c2590f6f3d923"
