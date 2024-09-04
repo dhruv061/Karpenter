@@ -1,0 +1,22 @@
+apiVersion: karpenter.sh/v1beta1
+kind: NodePool
+metadata:
+  name: dhruv-nodepool
+spec:
+  template:
+    spec:
+      requirements:
+        # - key: karpenter.k8s.aws/instance-category
+        #   operator: In
+        #   values: ["t3a.medium","m6a.large"]
+        - key: karpenter.k8s.aws/instance-size
+          operator: In
+          values: ["nano", "micro", "medium"]
+        - key: karpenter.sh/capacity-type
+          operator: In
+          values: ["spot"]          # ["spot","on-demand"]
+      nodeClassRef:
+        name: dhruv-nodeclass
+  disruption:
+    consolidationPolicy: WhenUnderutilized
+    expireAfter: 720h
