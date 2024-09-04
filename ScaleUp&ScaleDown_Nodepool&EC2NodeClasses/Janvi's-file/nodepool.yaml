@@ -1,0 +1,36 @@
+apiVersion: karpenter.sh/v1beta1
+kind: NodePool
+metadata:
+  name: default
+  namespace: karpenter
+spec:
+  template:
+    metadata:
+      labels:
+        type: karpenter
+    spec:
+      nodeClassRef:
+        name: default
+      requirements:
+        - key: "karpenter-k8s-aws/instance-type"
+          operator: In
+          values: ["t3a.medium","m6a.large"]
+        - key: "karpenter-k8s-aws/instance-cpu"
+          operator: In
+          values: ["2", "4"]
+        - key: "kubernetes.io/arch"
+          operator: In
+          values: ["amd64"]
+        - key: "karpenter-sh/capacity-type"
+          operator: In
+          values: ["on-demand"]
+      kubelet:
+        imageGCHighThresholdPercent: 85
+        imageGCLowThresholdPercent: 80
+  disruption:
+    consolidationPolicy: WhenUnderutilized
+    expireAfter: 720h
+  limits:
+    cpu: "1000"
+    memory: 1000Gi
+  weight: 100
